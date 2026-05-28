@@ -1,0 +1,8 @@
+# model.py = DB
+# schema.py = API Daten
+# router.py = Endpunkte wie login
+# service.py = Passwort überprüfen für den Login etc.
+
+# Für jede Tabelle wurde ein eigener Ordner erstellt, mit den wichtigsten Dateien, um den Überblick nicht zu verlieren.
+
+# CRUD-Informationen sind Pflicht.
