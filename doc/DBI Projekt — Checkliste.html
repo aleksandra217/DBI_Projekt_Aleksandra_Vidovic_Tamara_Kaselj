@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<!-- saved from url=(0169)file:///C:/Users/Startklar/Documents/3%20AHIF/Datenbanken%20und%20Informationssysteme/DBI%20Projekt_Aleksandra_Vidovic_Tamara_Kaselj/25_26_DBI_3HIF_Checkliste%20(1).html -->
+<html lang="de"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DBI Projekt — Checkliste</title>
+<style>
+body{margin:2rem;font-family:sans-serif;background:#fff;color:#222;max-width:800px;}
+.progress-wrap{background:#f0f0f0;border-radius:99px;height:6px;margin:6px 0 1rem;}
+.progress-bar{height:6px;border-radius:99px;background:#1D9E75;transition:width .3s;}
+.hrow{display:flex;align-items:center;gap:10px;margin-bottom:2px;}
+.save-btn{font-size:12px;padding:5px 14px;border:1px solid #ccc;border-radius:6px;cursor:pointer;background:#fff;color:#333;}
+.save-btn:hover{background:#f5f5f5;}
+.reset-btn{font-size:12px;padding:5px 10px;border:none;border-radius:6px;cursor:pointer;background:none;color:#bbb;}
+.reset-btn:hover{color:#888;}
+#saved-msg{font-size:12px;color:#1D9E75;opacity:0;transition:opacity .3s;}
+div[onclick]:hover{background:#f5f5f5;border-radius:6px;}
+@media print{body{margin:1cm;}.save-btn,.reset-btn,#saved-msg{display:none;}}
+</style>
+</head>
+<body>
+<div class="hrow">
+  <h2 style="font-size:18px;font-weight:500;margin:0;flex:1;">DBI Projekt — Checkliste</h2>
+  <button class="save-btn" onclick="persist()">Speichern</button>
+  <button class="reset-btn" onclick="reset()">Zurücksetzen</button>
+  <span id="saved-msg" style="opacity: 0;">✓ Gespeichert</span>
+</div>
+<div id="prog-label" style="font-size:12px;color:#888;margin:6px 0 2px;">12 von 40 erledigt (30%)</div>
+<div class="progress-wrap"><div class="progress-bar" id="prog-bar" style="width: 30%;"></div></div>
+<div style="margin-bottom:1.5rem;"><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+      <div style="width:9px;height:9px;border-radius:50%;background:#7F77DD;flex-shrink:0;"></div>
+      <span style="font-size:13px;font-weight:500;color:#222;">1. Team &amp; Projektidee</span>
+    </div><div style="display:flex;align-items:flex-start;gap:10px;padding:7px 8px;border-radius:6px;cursor:pointer;" onclick="toggle(this)">
+        <div style="width: 16px; height: 16px; border-radius: 3px; border: 1.5px solid rgb(29, 158, 117); flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; background: rgb(29, 158, 117);" class="cb" data-done="1"><svg width="10" height="7" viewBox="0 0 10 7"><path d="M1 3.5L3.5 6L9 1" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;">
+          <span style="font-size: 13px; color: rgb(170, 170, 170); line-height: 1.4; text-decoration: line-through;" class="ct">Team zusammengestellt (2er-Team)</span>
+        </div>
+      </div><div style="display:flex;align-items:flex-start;gap:10px;padding:7px 8px;border-radius:6px;cursor:pointer;" onclick="toggle(this)">
+        <div style="width: 16px; height: 16px; border-radius: 3px; border: 1.5px solid rgb(29, 158, 117); flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; background: rgb(29, 158, 117);" class="cb" data-done="1"><svg width="10" height="7" viewBox="0 0 10 7"><path d="M1 3.5L3.5 6L9 1" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;">
+          <span style="font-size: 13px; color: rgb(170, 170, 170); line-height: 1.4; text-decoration: line-through;" class="ct">Projektidee ausgedacht (Domäne gewählt)</span>
+        </div>
+      </div><div style="display:flex;align-items:flex-start;gap:10px;padding:7px 8px;border-radius:6px;cursor:pointer;" onclick="toggle(this)">
+        <div style="width: 16px; height: 16px; border-radius: 3px; border: 1.5px solid rgb(29, 158, 117); flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; background: rgb(29, 158, 117);" class="cb" data-done="1"><svg width="10" height="7" viewBox="0 0 10 7"><path d="M1 3.5L3.5 6L9 1" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;">
+          <span style="font-size: 13px; color: rgb(170, 170, 170); line-height: 1.4; text-decoration: line-through;" class="ct">Domäne beschrieben: Was soll das System verwalten?</span><span style="font-size:11px;padding:2px 7px;border-radius:99px;margin-left:6px;background:#EEEDFE;color:#3C3489;">Pflicht</span>
+        </div>
+      </div><div style="display:flex;align-items:flex-start;gap:10px;padding:7px 8px;border-radius:6px;cursor:pointer;" onclick="toggle(this)">
+        <div style="width: 16px; height: 16px; border-radius: 3px; border: 1.5px solid rgb(29, 158, 117); flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; background: rgb(29, 158, 117);" class="cb" data-done="1"><svg width="10" height="7" viewBox="0 0 10 7"><path d="M1 3.5L3.5 6L9 1" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;">
+          <span style="font-size: 13px; color: rgb(170, 170, 170); line-height: 1.4; text-decoration: line-through;" class="ct">Erste Überlegung zu Entitäten und Beziehungen</span>
+        </div>
+      </div><div style="display:flex;align-items:flex-start;gap:10px;padding:7px 8px;border-radius:6px;cursor:pointer;" onclick="toggle(this)">
+        <div style="width: 16px; height: 16px; border-radius: 3px; border: 1.5px solid rgb(29, 158, 117); flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; background: rgb(29, 158, 117);" class="cb" data-done="1"><svg width="10" height="7" viewBox="0 0 10 7"><path d="M1 3.5L3.5 6L9 1" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;">
+          <span style="font-size: 13px; color: rgb(170, 170, 170); line-height: 1.4; text-decoration: line-through;" class="ct">Must-Have vs. Nice-To-Have Features definiert</span><span style="font-size:11px;padding:2px 7px;border-radius:99px;margin-left:6px;background:#EEEDFE;color:#3C3489;">Pflicht</span>
+        </div>
+      </div><div style="display:flex;align-items:flex-start;gap:10px;padding:7px 8px;border-radius:6px;cursor:pointer;" onclick="toggle(this)">
+        <div style="width: 16px; height: 16px; border-radius: 3px; border: 1.5px solid rgb(29, 158, 117); flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; background: rgb(29, 158, 117);" class="cb" data-done="1"><svg width="10" height="7" viewBox="0 0 10 7"><path d="M1 3.5L3.5 6L9 1" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;">
+          <span style="font-size: 13px; color: rgb(170, 170, 170); line-height: 1.4; text-decoration: line-through;" class="ct">Aufgabenverteilung festgelegt (wer macht was?)</span><span style="font-size:11px;padding:2px 7px;border-radius:99px;margin-left:6px;background:#EEEDFE;color:#3C3489;">Pflicht</span>
+        </div>
+      </div><div style="display:flex;align-items:flex-start;gap:10px;padding:7px 8px;border-radius:6px;cursor:pointer;" onclick="toggle(this)">
+        <div style="width: 16px; height: 16px; border-radius: 3px; border: 1.5px solid rgb(204, 204, 204); flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center;" class="cb" data-done="0"></div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;">
+          <span style="font-size: 13px; color: rgb(34, 34, 34); line-height: 1.4;" class="ct">Dokument abgegeben &amp; Freigabe erhalten</span><span style="font-size:11px;padding:2px 7px;border-radius:99px;margin-left:6px;background:#FAECE7;color:#712B13;">Abgabe</span>
+        </div>
+      </div></div><div style="margin-bottom:1.5rem;"><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+      <div style="width:9px;height:9px;border-radius:50%;background:#1D9E75;flex-shrink:0;"></div>
+      <span style="font-size:13px;font-weight:500;color:#222;">2. Planungsphase</span>
+    </div><div style="display:flex;align-items:flex-start;gap:10px;padding:7px 8px;border-radius:6px;cursor:pointer;" onclick="toggle(this)">
+        <div style="width: 16px; height: 16px; border-radius: 3px; border: 1.5px solid rgb(29, 158, 117); flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; background: rgb(29, 158, 117);" class="cb" data-done="1"><svg width="10" height="7" viewBox="0 0 10 7"><path d="M1 3.5L3.5 6L9 1" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;">
+          <span style="font-size: 13px; color: rgb(170, 170, 170); line-height: 1.4; text-decoration: line-through;" class="ct">ERM erstellt (Entitäten, Attribute, Beziehungen)</span><span style="font-size:11px;padding:2px 7px;border-radius:99px;margin-left:6px;background:#EEEDFE;color:#3C3489;">Pflicht</span>
+        </div>
+      </div><div style="display:flex;align-items:flex-start;gap:10px;padding:7px 8px;border-radius:6px;cursor:pointer;" onclick="toggle(this)">
+        <div style="width: 16px; height: 16px; border-radius: 3px; border: 1.5px solid rgb(29, 158, 117); flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; background: rgb(29, 158, 117);" class="cb" data-done="1"><svg width="10" height="7" viewBox="0 0 10 7"><path d="M1 3.5L3.5 6L9 1" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;">
+          <span style="font-size: 13px; color: rgb(170, 170, 170); line-height: 1.4; text-decoration: line-through;" class="ct">Alle drei Kardinalitäten vorhanden (1:1, 1:n, m:n)</span><span style="font-size:11px;padding:2px 7px;border-radius:99px;margin-left:6px;background:#EEEDFE;color:#3C3489;">Pflicht</span>
+        </div>
+      </div><div style="display:flex;align-items:flex-start;gap:10px;padding:7px 8px;border-radius:6px;cursor:pointer;" onclick="toggle(this)">
+        <div style="width: 16px; height: 16px; border-radius: 3px; border: 1.5px solid rgb(29, 158, 117); flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; background: rgb(29, 158, 117);" class="cb" data-done="1"><svg width="10" height="7" viewBox="0 0 10 7"><path d="M1 3.5L3.5 6L9 1" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;">
+          <span style="font-size: 13px; color: rgb(170, 170, 170); line-height: 1.4; text-decoration: line-through;" class="ct">Relationales Modell (RM) vollständig abgeleitet</span><span style="font-size:11px;padding:2px 7px;border-radius:99px;margin-left:6px;background:#EEEDFE;color:#3C3489;">Pflicht</span>
+        </div>
+      </div><div style="display:flex;align-items:flex-start;gap:10px;padding:7px 8px;border-radius:6px;cursor:pointer;" onclick="toggle(this)">
+        <div style="width: 16px; height: 16px; border-radius: 3px; border: 1.5px solid rgb(29, 158, 117); flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; background: rgb(29, 158, 117);" class="cb" data-done="1"><svg width="10" height="7" viewBox="0 0 10 7"><path d="M1 3.5L3.5 6L9 1" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;">
+          <span style="font-size: 13px; color: rgb(170, 170, 170); line-height: 1.4; text-decoration: line-through;" class="ct">Normalisierung nachgewiesen (1NF, 2NF, 3NF pro Tabelle)</span><span style="font-size:11px;padding:2px 7px;border-radius:99px;margin-left:6px;background:#EEEDFE;color:#3C3489;">Pflicht</span>
+        </div>
+      </div><div style="display:flex;align-items:flex-start;gap:10px;padding:7px 8px;border-radius:6px;cursor:pointer;" onclick="toggle(this)">
+        <div style="width: 16px; height: 16px; border-radius: 3px; border: 1.5px solid rgb(29, 158, 117); flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; background: rgb(29, 158, 117);" class="cb" data-done="1"><svg width="10" height="7" viewBox="0 0 10 7"><path d="M1 3.5L3.5 6L9 1" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;">
+          <span style="font-size: 13px; color: rgb(170, 170, 170); line-height: 1.4; text-decoration: line-through;" class="ct">Mindestens 5 Tabellen geplant</span><span style="font-size:11px;padding:2px 7px;border-radius:99px;margin-left:6px;background:#EEEDFE;color:#3C3489;">Pflicht</span>
+        </div>
+      </div><div style="display:flex;align-items:flex-start;gap:10px;padding:7px 8px;border-radius:6px;cursor:pointer;" onclick="toggle(this)">
+        <div style="width: 16px; height: 16px; border-radius: 3px; border: 1.5px solid rgb(29, 158, 117); flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; background: rgb(29, 158, 117);" class="cb" data-done="1"><svg width="10" height="7" viewBox="0 0 10 7"><path d="M1 3.5L3.5 6L9 1" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;">
+          <span style="font-size: 13px; color: rgb(170, 170, 170); line-height: 1.4; text-decoration: line-through;" class="ct">Git Repository angelegt</span><span style="font-size:11px;padding:2px 7px;border-radius:99px;margin-left:6px;background:#E1F5EE;color:#085041;">Git</span>
+        </div>
+      </div><div style="display:flex;align-items:flex-start;gap:10px;padding:7px 8px;border-radius:6px;cursor:pointer;" onclick="toggle(this)">
+        <div style="width: 16px; height: 16px; border-radius: 3px; border: 1.5px solid rgb(204, 204, 204); flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center;" class="cb" data-done="0"></div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;">
+          <span style="font-size: 13px; color: rgb(34, 34, 34); line-height: 1.4;" class="ct">Ordnerstruktur angelegt (src/, doc/)</span><span style="font-size:11px;padding:2px 7px;border-radius:99px;margin-left:6px;background:#E1F5EE;color:#085041;">Git</span>
+        </div>
+      </div></div><div style="margin-bottom:1.5rem;"><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+      <div style="width:9px;height:9px;border-radius:50%;background:#BA7517;flex-shrink:0;"></div>
+      <span style="font-size:13px;font-weight:500;color:#222;">3. Umsetzungsphase</span>
+    </div><div style="display:flex;align-items:flex-start;gap:10px;padding:7px 8px;border-radius:6px;cursor:pointer;" onclick="toggle(this)">
+        <div style="width:16px;height:16px;border-radius:3px;border:1.5px solid #ccc;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;" class="cb" data-done="0"></div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;">
+          <span style="font-size:13px;color:#222;line-height:1.4;" class="ct">Datenbank-Schema angelegt (init_db.py)</span><span style="font-size:11px;padding:2px 7px;border-radius:99px;margin-left:6px;background:#EEEDFE;color:#3C3489;">Pflicht</span>
+        </div>
+      </div><div style="display:flex;align-items:flex-start;gap:10px;padding:7px 8px;border-radius:6px;cursor:pointer;" onclick="toggle(this)">
+        <div style="width:16px;height:16px;border-radius:3px;border:1.5px solid #ccc;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;" class="cb" data-done="0"></div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;">
+          <span style="font-size:13px;color:#222;line-height:1.4;" class="ct">FastAPI Grundstruktur aufgesetzt (main.py, routers/)</span><span style="font-size:11px;padding:2px 7px;border-radius:99px;margin-left:6px;background:#EEEDFE;color:#3C3489;">Pflicht</span>
+        </div>
+      </div><div style="display:flex;align-items:flex-start;gap:10px;padding:7px 8px;border-radius:6px;cursor:pointer;" onclick="toggle(this)">
+        <div style="width:16px;height:16px;border-radius:3px;border:1.5px solid #ccc;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;" class="cb" data-done="0"></div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;">
+          <span style="font-size:13px;color:#222;line-height:1.4;" class="ct">Alle CRUD-Endpunkte implementiert (GET-Liste, GET-Einzeln, POST, PUT, DELETE)</span><span style="font-size:11px;padding:2px 7px;border-radius:99px;margin-left:6px;background:#EEEDFE;color:#3C3489;">Pflicht</span>
+        </div>
+      </div><div style="display:flex;align-items:flex-start;gap:10px;padding:7px 8px;border-radius:6px;cursor:pointer;" onclick="toggle(this)">
+        <div style="width:16px;height:16px;border-radius:3px;border:1.5px solid #ccc;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;" class="cb" data-done="0"></div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;">
+          <span style="font-size:13px;color:#222;line-height:1.4;" class="ct">Mindestens ein JOIN-Endpunkt implementiert</span><span style="font-size:11px;padding:2px 7px;border-radius:99px;margin-left:6px;background:#EEEDFE;color:#3C3489;">Pflicht</span>
+        </div>
+      </div><div style="display:flex;align-items:flex-start;gap:10px;padding:7px 8px;border-radius:6px;cursor:pointer;" onclick="toggle(this)">
+        <div style="width:16px;height:16px;border-radius:3px;border:1.5px solid #ccc;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;" class="cb" data-done="0"></div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;">
+          <span style="font-size:13px;color:#222;line-height:1.4;" class="ct">Mindestens ein Aggregationsendpunkt (GROUP BY + COUNT/SUM/AVG)</span><span style="font-size:11px;padding:2px 7px;border-radius:99px;margin-left:6px;background:#EEEDFE;color:#3C3489;">Pflicht</span>
+        </div>
+      </div><div style="display:flex;align-items:flex-start;gap:10px;padding:7px 8px;border-radius:6px;cursor:pointer;" onclick="toggle(this)">
+        <div style="width:16px;height:16px;border-radius:3px;border:1.5px solid #ccc;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;" class="cb" data-done="0"></div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;">
+          <span style="font-size:13px;color:#222;line-height:1.4;" class="ct">Pydantic-Modelle für alle Request/Response-Schemas erstellt</span><span style="font-size:11px;padding:2px 7px;border-radius:99px;margin-left:6px;background:#EEEDFE;color:#3C3489;">Pflicht</span>
+        </div>
+      </div><div style="display:flex;align-items:flex-start;gap:10px;padding:7px 8px;border-radius:6px;cursor:pointer;" onclick="toggle(this)">
+        <div style="width:16px;height:16px;border-radius:3px;border:1.5px solid #ccc;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;" class="cb" data-done="0"></div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;">
+          <span style="font-size:13px;color:#222;line-height:1.4;" class="ct">HTTP-Statuscodes korrekt gesetzt (200, 201, 400, 404, 409, 401)</span><span style="font-size:11px;padding:2px 7px;border-radius:99px;margin-left:6px;background:#EEEDFE;color:#3C3489;">Pflicht</span>
+        </div>
+      </div><div style="display:flex;align-items:flex-start;gap:10px;padding:7px 8px;border-radius:6px;cursor:pointer;" onclick="toggle(this)">
+        <div style="width:16px;height:16px;border-radius:3px;border:1.5px solid #ccc;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;" class="cb" data-done="0"></div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;">
+          <span style="font-size:13px;color:#222;line-height:1.4;" class="ct">Rollen implementiert (admin: voll, user: nur GET)</span><span style="font-size:11px;padding:2px 7px;border-radius:99px;margin-left:6px;background:#EEEDFE;color:#3C3489;">Pflicht</span>
+        </div>
+      </div><div style="display:flex;align-items:flex-start;gap:10px;padding:7px 8px;border-radius:6px;cursor:pointer;" onclick="toggle(this)">
+        <div style="width:16px;height:16px;border-radius:3px;border:1.5px solid #ccc;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;" class="cb" data-done="0"></div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;">
+          <span style="font-size:13px;color:#222;line-height:1.4;" class="ct">Authentifizierung umgesetzt (API-Key oder JWT)</span><span style="font-size:11px;padding:2px 7px;border-radius:99px;margin-left:6px;background:#EEEDFE;color:#3C3489;">Pflicht</span>
+        </div>
+      </div><div style="display:flex;align-items:flex-start;gap:10px;padding:7px 8px;border-radius:6px;cursor:pointer;" onclick="toggle(this)">
+        <div style="width:16px;height:16px;border-radius:3px;border:1.5px solid #ccc;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;" class="cb" data-done="0"></div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;">
+          <span style="font-size:13px;color:#222;line-height:1.4;" class="ct">Logging implementiert (INFO + ERROR, Konsole + api.log)</span><span style="font-size:11px;padding:2px 7px;border-radius:99px;margin-left:6px;background:#EEEDFE;color:#3C3489;">Pflicht</span>
+        </div>
+      </div><div style="display:flex;align-items:flex-start;gap:10px;padding:7px 8px;border-radius:6px;cursor:pointer;" onclick="toggle(this)">
+        <div style="width:16px;height:16px;border-radius:3px;border:1.5px solid #ccc;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;" class="cb" data-done="0"></div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;">
+          <span style="font-size:13px;color:#222;line-height:1.4;" class="ct">SQL-Injection-Schutz: parametrisierte Abfragen überall</span><span style="font-size:11px;padding:2px 7px;border-radius:99px;margin-left:6px;background:#EEEDFE;color:#3C3489;">Pflicht</span>
+        </div>
+      </div><div style="display:flex;align-items:flex-start;gap:10px;padding:7px 8px;border-radius:6px;cursor:pointer;" onclick="toggle(this)">
+        <div style="width:16px;height:16px;border-radius:3px;border:1.5px solid #ccc;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;" class="cb" data-done="0"></div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;">
+          <span style="font-size:13px;color:#222;line-height:1.4;" class="ct">Validierung: alle Eingaben über Pydantic geprüft</span><span style="font-size:11px;padding:2px 7px;border-radius:99px;margin-left:6px;background:#EEEDFE;color:#3C3489;">Pflicht</span>
+        </div>
+      </div><div style="display:flex;align-items:flex-start;gap:10px;padding:7px 8px;border-radius:6px;cursor:pointer;" onclick="toggle(this)">
+        <div style="width:16px;height:16px;border-radius:3px;border:1.5px solid #ccc;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;" class="cb" data-done="0"></div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;">
+          <span style="font-size:13px;color:#222;line-height:1.4;" class="ct">API startbar via uvicorn src.main:app</span><span style="font-size:11px;padding:2px 7px;border-radius:99px;margin-left:6px;background:#EEEDFE;color:#3C3489;">Pflicht</span>
+        </div>
+      </div><div style="display:flex;align-items:flex-start;gap:10px;padding:7px 8px;border-radius:6px;cursor:pointer;" onclick="toggle(this)">
+        <div style="width:16px;height:16px;border-radius:3px;border:1.5px solid #ccc;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;" class="cb" data-done="0"></div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;">
+          <span style="font-size:13px;color:#222;line-height:1.4;" class="ct">Swagger UI unter /docs erreichbar und vollständig</span><span style="font-size:11px;padding:2px 7px;border-radius:99px;margin-left:6px;background:#EEEDFE;color:#3C3489;">Pflicht</span>
+        </div>
+      </div><div style="display:flex;align-items:flex-start;gap:10px;padding:7px 8px;border-radius:6px;cursor:pointer;" onclick="toggle(this)">
+        <div style="width:16px;height:16px;border-radius:3px;border:1.5px solid #ccc;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;" class="cb" data-done="0"></div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;">
+          <span style="font-size:13px;color:#222;line-height:1.4;" class="ct">Projekttagebuch laufend geführt (wer / wann / was)</span><span style="font-size:11px;padding:2px 7px;border-radius:99px;margin-left:6px;background:#FAECE7;color:#712B13;">Abgabe</span>
+        </div>
+      </div><div style="display:flex;align-items:flex-start;gap:10px;padding:7px 8px;border-radius:6px;cursor:pointer;" onclick="toggle(this)">
+        <div style="width:16px;height:16px;border-radius:3px;border:1.5px solid #ccc;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;" class="cb" data-done="0"></div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;">
+          <span style="font-size:13px;color:#222;line-height:1.4;" class="ct">Regelmäßige Git-Commits von beiden Mitgliedern</span><span style="font-size:11px;padding:2px 7px;border-radius:99px;margin-left:6px;background:#E1F5EE;color:#085041;">Git</span>
+        </div>
+      </div></div><div style="margin-bottom:1.5rem;"><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+      <div style="width:9px;height:9px;border-radius:50%;background:#D85A30;flex-shrink:0;"></div>
+      <span style="font-size:13px;font-weight:500;color:#222;">4. Abgabe &amp; Dokumentation</span>
+    </div><div style="display:flex;align-items:flex-start;gap:10px;padding:7px 8px;border-radius:6px;cursor:pointer;" onclick="toggle(this)">
+        <div style="width:16px;height:16px;border-radius:3px;border:1.5px solid #ccc;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;" class="cb" data-done="0"></div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;">
+          <span style="font-size:13px;color:#222;line-height:1.4;" class="ct">ERM als Diagramm-Datei vorhanden (DrawIO / PlantUML)</span><span style="font-size:11px;padding:2px 7px;border-radius:99px;margin-left:6px;background:#FAECE7;color:#712B13;">Abgabe</span>
+        </div>
+      </div><div style="display:flex;align-items:flex-start;gap:10px;padding:7px 8px;border-radius:6px;cursor:pointer;" onclick="toggle(this)">
+        <div style="width:16px;height:16px;border-radius:3px;border:1.5px solid #ccc;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;" class="cb" data-done="0"></div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;">
+          <span style="font-size:13px;color:#222;line-height:1.4;" class="ct">RM-Übersicht vollständig (Spalten, PK unterstrichen, FK kursiv)</span><span style="font-size:11px;padding:2px 7px;border-radius:99px;margin-left:6px;background:#FAECE7;color:#712B13;">Abgabe</span>
+        </div>
+      </div><div style="display:flex;align-items:flex-start;gap:10px;padding:7px 8px;border-radius:6px;cursor:pointer;" onclick="toggle(this)">
+        <div style="width:16px;height:16px;border-radius:3px;border:1.5px solid #ccc;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;" class="cb" data-done="0"></div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;">
+          <span style="font-size:13px;color:#222;line-height:1.4;" class="ct">Normalisierungsnachweis in Dokumentation (1NF–3NF pro Tabelle)</span><span style="font-size:11px;padding:2px 7px;border-radius:99px;margin-left:6px;background:#FAECE7;color:#712B13;">Abgabe</span>
+        </div>
+      </div><div style="display:flex;align-items:flex-start;gap:10px;padding:7px 8px;border-radius:6px;cursor:pointer;" onclick="toggle(this)">
+        <div style="width:16px;height:16px;border-radius:3px;border:1.5px solid #ccc;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;" class="cb" data-done="0"></div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;">
+          <span style="font-size:13px;color:#222;line-height:1.4;" class="ct">Projektbeschreibung verfasst</span><span style="font-size:11px;padding:2px 7px;border-radius:99px;margin-left:6px;background:#FAECE7;color:#712B13;">Abgabe</span>
+        </div>
+      </div><div style="display:flex;align-items:flex-start;gap:10px;padding:7px 8px;border-radius:6px;cursor:pointer;" onclick="toggle(this)">
+        <div style="width:16px;height:16px;border-radius:3px;border:1.5px solid #ccc;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;" class="cb" data-done="0"></div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;">
+          <span style="font-size:13px;color:#222;line-height:1.4;" class="ct">Bedienungsanleitung: API starten + Beispiel-Requests</span><span style="font-size:11px;padding:2px 7px;border-radius:99px;margin-left:6px;background:#FAECE7;color:#712B13;">Abgabe</span>
+        </div>
+      </div><div style="display:flex;align-items:flex-start;gap:10px;padding:7px 8px;border-radius:6px;cursor:pointer;" onclick="toggle(this)">
+        <div style="width:16px;height:16px;border-radius:3px;border:1.5px solid #ccc;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;" class="cb" data-done="0"></div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;">
+          <span style="font-size:13px;color:#222;line-height:1.4;" class="ct">Projekttagebuch vollständig</span><span style="font-size:11px;padding:2px 7px;border-radius:99px;margin-left:6px;background:#FAECE7;color:#712B13;">Abgabe</span>
+        </div>
+      </div><div style="display:flex;align-items:flex-start;gap:10px;padding:7px 8px;border-radius:6px;cursor:pointer;" onclick="toggle(this)">
+        <div style="width:16px;height:16px;border-radius:3px;border:1.5px solid #ccc;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;" class="cb" data-done="0"></div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;">
+          <span style="font-size:13px;color:#222;line-height:1.4;" class="ct">requirements.txt vollständig</span><span style="font-size:11px;padding:2px 7px;border-radius:99px;margin-left:6px;background:#FAECE7;color:#712B13;">Abgabe</span>
+        </div>
+      </div><div style="display:flex;align-items:flex-start;gap:10px;padding:7px 8px;border-radius:6px;cursor:pointer;" onclick="toggle(this)">
+        <div style="width:16px;height:16px;border-radius:3px;border:1.5px solid #ccc;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;" class="cb" data-done="0"></div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;">
+          <span style="font-size:13px;color:#222;line-height:1.4;" class="ct">Dokumentation als PDF exportiert</span><span style="font-size:11px;padding:2px 7px;border-radius:99px;margin-left:6px;background:#FAECE7;color:#712B13;">Abgabe</span>
+        </div>
+      </div><div style="display:flex;align-items:flex-start;gap:10px;padding:7px 8px;border-radius:6px;cursor:pointer;" onclick="toggle(this)">
+        <div style="width:16px;height:16px;border-radius:3px;border:1.5px solid #ccc;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;" class="cb" data-done="0"></div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;">
+          <span style="font-size:13px;color:#222;line-height:1.4;" class="ct">Git Repository aktuell &amp; vollständig</span><span style="font-size:11px;padding:2px 7px;border-radius:99px;margin-left:6px;background:#E1F5EE;color:#085041;">Git</span>
+        </div>
+      </div><div style="display:flex;align-items:flex-start;gap:10px;padding:7px 8px;border-radius:6px;cursor:pointer;" onclick="toggle(this)">
+        <div style="width:16px;height:16px;border-radius:3px;border:1.5px solid #ccc;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;" class="cb" data-done="0"></div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;">
+          <span style="font-size:13px;color:#222;line-height:1.4;" class="ct">Abgabe pünktlich eingereicht</span><span style="font-size:11px;padding:2px 7px;border-radius:99px;margin-left:6px;background:#FAECE7;color:#712B13;">Abgabe</span>
+        </div>
+      </div></div>
+<script>
+const SK='dbi_cl_v1';
+function toggle(el){
+  const cb=el.querySelector('.cb'),ct=el.querySelector('.ct');
+  const done=cb.dataset.done==='1';
+  if(!done){
+    cb.style.background='#1D9E75';cb.style.borderColor='#1D9E75';
+    cb.innerHTML='<svg width="10" height="7" viewBox="0 0 10 7"><path d="M1 3.5L3.5 6L9 1" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><\/svg>';
+    ct.style.textDecoration='line-through';ct.style.color='#aaa';cb.dataset.done='1';
+  } else {
+    cb.style.background='';cb.style.borderColor='#ccc';cb.innerHTML='';
+    ct.style.textDecoration='';ct.style.color='#222';cb.dataset.done='0';
+  }
+  updateProgress();
+  persist();
+}
+function persist(){
+  const state=[...document.querySelectorAll('.cb')].map(c=>c.dataset.done==='1');
+  localStorage.setItem(SK,JSON.stringify(state));
+  flash();
+}
+function flash(){
+  const el=document.getElementById('saved-msg');
+  el.style.opacity='1';
+  clearTimeout(el._t);
+  el._t=setTimeout(()=>el.style.opacity='0',1500);
+}
+function restore(){
+  const raw=localStorage.getItem(SK);
+  if(!raw) return;
+  JSON.parse(raw).forEach((done,i)=>{
+    if(!done) return;
+    const cb=document.querySelectorAll('.cb')[i];
+    if(!cb) return;
+    const ct=cb.closest('[onclick]').querySelector('.ct');
+    cb.style.background='#1D9E75';cb.style.borderColor='#1D9E75';
+    cb.innerHTML='<svg width="10" height="7" viewBox="0 0 10 7"><path d="M1 3.5L3.5 6L9 1" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><\/svg>';
+    ct.style.textDecoration='line-through';ct.style.color='#aaa';cb.dataset.done='1';
+  });
+  updateProgress();
+}
+function reset(){
+  if(!confirm('Alle Häkchen zurücksetzen?')) return;
+  localStorage.removeItem(SK);
+  document.querySelectorAll('.cb').forEach(cb=>{
+    const ct=cb.closest('[onclick]').querySelector('.ct');
+    cb.style.background='';cb.style.borderColor='#ccc';cb.innerHTML='';
+    ct.style.textDecoration='';ct.style.color='#222';cb.dataset.done='0';
+  });
+  updateProgress();
+}
+function updateProgress(){
+  const all=document.querySelectorAll('.cb');
+  const done=[...all].filter(c=>c.dataset.done==='1').length;
+  const pct=all.length?Math.round(done/all.length*100):0;
+  document.getElementById('prog-bar').style.width=pct+'%';
+  document.getElementById('prog-label').textContent=done+' von '+all.length+' erledigt ('+pct+'%)';
+}
+restore();
+</script>
+
+</body></html>
