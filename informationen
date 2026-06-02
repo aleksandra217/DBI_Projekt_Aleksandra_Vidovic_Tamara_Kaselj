@@ -6,3 +6,5 @@
 # Für jede Tabelle wurde ein eigener Ordner erstellt, mit den wichtigsten Dateien, um den Überblick nicht zu verlieren.
 
 # CRUD-Informationen sind Pflicht.
+
+# ordner - vielleicht ein base.py aufbauen, zur Fehlerbehandlung?
