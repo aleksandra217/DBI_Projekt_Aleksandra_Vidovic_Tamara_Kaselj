@@ -3,7 +3,7 @@ from fastapi import APIRouter, Depends
 from fastapi_restful.cbv import cbv
 
 
-from ordner.model_ordner import DBOrdner
+from model import DBOrdner
 from ordner.base import BaseAPI
 
 

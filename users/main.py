@@ -3,12 +3,14 @@ from fastapi import FastAPI
 from database import Base, engine
 from users.router import router as user_router
 from ordner.router import router as ordner_router
+from karteikarten.router import router as karteikarten_router
 
 Base.metadata.create_all(bind=engine)
 app = FastAPI(title="Karteikartensystem", description="Karteikartensystem", version="1.0.0")
 
 app.include_router(user_router)
 app.include_router(ordner_router)
+app.include_router(karteikarten_router)
 
 
 @app.get("/")

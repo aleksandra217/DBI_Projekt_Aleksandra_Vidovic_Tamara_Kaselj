@@ -3,8 +3,8 @@ from fastapi import APIRouter
 from fastapi_restful.cbv import cbv
 
 
-from users.model import DBUser
-from users.base import BaseAPI
+from model import DBUser
+from base import BaseAPI
 
 
 
