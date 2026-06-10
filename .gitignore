@@ -5,5 +5,5 @@ ENV/
 __pycache__/
 *.pyc
 *.db-journal
-*.db
-karteikartensystem.db
+
+
