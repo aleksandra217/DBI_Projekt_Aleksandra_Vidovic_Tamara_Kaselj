@@ -5,7 +5,7 @@ from fastapi import APIRouter
 from fastapi_restful.cbv import cbv
 
 
-from users.model import DBUser
+from model import DBStatistik
 from users.base import BaseAPI
 
 
@@ -35,31 +35,30 @@ class Statistik_API(BaseAPI):
         return self.get_or_404(DBStatistik, statistik_id, "statistikid")
 
     @router.post("/", response_model=Statistik_Response)
-    def user_erstellen(self, user: Statistik_erstellen):
+    def statistik_erstellen(self, statistik: Statistik_erstellen):
         db_statistik = DBStatistik(richtige_antworten=statistik.richtige_antworten, falsche_antworten=statistik.falsche_antworten)
-        self.db.add(db_user)
+        self.db.add(db_statistik)
         self.db.commit()
-        self.db.refresh(db_user)
+        self.db.refresh(db_statistik)
         print(self.db)
-        return db_user
+        return db_statistik
 
 
-    @router.delete("/{user_id}")
-    def user_entfernen(self, user_id: int):
-        db_user = self.get_or_404(DBUser, user_id, "userid")
-        self.db.delete(db_user)
+    @router.delete("/{statistik_id}")
+    def statistik_entfernen(self, statistik_id: int):
+        db_statistik = self.get_or_404(DBStatistik, statistik_id, "statistikid")
+        self.db.delete(db_statistik)
         self.db.commit()
 
-    @router.put("/{user_id}", response_model=User_Response)
-    def user_veraendern(self, user_id: int, item: User_erstellen):
-        db_user = self.get_or_404(DBUser, user_id, "userid")
+    @router.put("/{statistik_id}", response_model=Statistik_Response)
+    def Statistik_veraendern(self, user_id: int, item: Statistik_erstellen):
+        db_statistik = self.get_or_404(DBStatistik, user_id, "statistikid")
 
-        db_user.name = item.name
-        db_user.email_adresse = item.email_adresse
+        db_statistik.name = item.name
+        db_statistik.email_adresse = item.email_adresse
 
-        self.db.add(db_user)
+        self.db.add(db_statistik)
         self.db.commit()
-        self.db.refresh(db_user)
+        self.db.refresh(db_statistik)
 
-        return db_user
-
+        return db_statistik

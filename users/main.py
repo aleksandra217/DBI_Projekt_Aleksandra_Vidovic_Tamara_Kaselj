@@ -4,6 +4,8 @@ from database import Base, engine
 from users.router import router as user_router
 from ordner.router import router as ordner_router
 from karteikarten.router import router as karteikarten_router
+from quiz.router import router as quiz_router
+from statistik.router import router as statistik_router
 
 Base.metadata.create_all(bind=engine)
 app = FastAPI(title="Karteikartensystem", description="Karteikartensystem", version="1.0.0")
@@ -11,9 +13,11 @@ app = FastAPI(title="Karteikartensystem", description="Karteikartensystem", vers
 app.include_router(user_router)
 app.include_router(ordner_router)
 app.include_router(karteikarten_router)
+app.include_router(quiz_router)
+app.include_router(statistik_router)
 
 
-@app.get("/")
+@app.get("/") 
 def root():
     return {"message": "Unser Karteikartensystem."}
 

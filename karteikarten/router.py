@@ -10,6 +10,7 @@ router = APIRouter(prefix="/karteikarten", tags=["Karteikarten"])
 class Karteikarten_erstellen(BaseModel):
     text_frage: str
     text_loesung: str
+    ordnerid: int
 
 
 
@@ -31,7 +32,7 @@ class Karteikarten_API(BaseAPI):
 
     @router.post("/", response_model=Karteikarten_Response)
     def karteikarten_erstellen(self, karteikarten: Karteikarten_erstellen):
-        db_karteikarten = DBKarteikarten(text_frage=karteikarten.text_frage, text_loesung=karteikarten.text_loesung)
+        db_karteikarten = DBKarteikarten(text_frage=karteikarten.text_frage, text_loesung=karteikarten.text_loesung, ordnerid=karteikarten.ordnerid)
         self.db.add(db_karteikarten)
         self.db.commit()
         self.db.refresh(db_karteikarten)
