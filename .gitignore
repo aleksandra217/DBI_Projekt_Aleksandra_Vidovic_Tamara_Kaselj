@@ -3,4 +3,4 @@ venv/
 ENV/
 .idea/
 __pycache__/
-*.pyc
+*.pycstim
