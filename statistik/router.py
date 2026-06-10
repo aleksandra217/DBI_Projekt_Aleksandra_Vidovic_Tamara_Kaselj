@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import date, datetime
 
 from pydantic import BaseModel, field_validator, ConfigDict
 from fastapi import APIRouter
@@ -7,6 +7,7 @@ from fastapi_restful.cbv import cbv
 
 from model import DBStatistik
 from users.base import BaseAPI
+from typing import Optional, Any
 
 
 
@@ -16,7 +17,8 @@ router = APIRouter(prefix="/statistik", tags=["Statistik"])
 class Statistik_erstellen(BaseModel):
     richtige_antworten: int
     falsche_antworten: int
-    aktualisierungsStatistik: datetime
+    # Wieso bekomme ich einen 500 Internal Server Error? Lösung: statt datetime setzen, ein Optional[Any] = None setzen, weil falls es momentan keine Daten liefert, dann stürtzt das Programm nicht ab und man bekommt trotzdem seinen aktuellen stand.
+    aktualisierungsstatistik: Optional[Any] = None
 
 
 class Statistik_Response(Statistik_erstellen):

@@ -62,9 +62,8 @@ class Quiz_API(BaseAPI):
 
         return db_quiz
 
+
     @router.post("/ordner/{ordner_id}/generate")
     def quiz_aus_karteikarten_erstellen(self, ordner_id: int):
-        karteikarten_holen = self.db.query(DBKarteikarten).filter(DBKarteikarten.ordnerid == ordner_id).all()
-
-        return karteikarten_holen
-
+     karteikarten_holen = self.db.query(DBKarteikarten).filter(DBKarteikarten.ordnerid == ordner_id).all()
+     return karteikarten_holen
