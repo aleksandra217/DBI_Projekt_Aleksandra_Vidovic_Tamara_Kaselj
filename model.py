@@ -1,66 +1,88 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, Date
+from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Text, Date, UniqueConstraint
 from database import Base
+from sqlalchemy.orm import relationship
+from datetime import datetime
+
 
 
 class DBUser(Base):
     __tablename__ = 'users'
 
-    userid = Column(Integer, primary_key=True)
-    name = Column(String, index=True)
-    email_adresse = Column(String, index=True)
+    userid = Column(Integer, primary_key=True, index=True)
+    name = Column(String(50), nullable=False)
+    email_adresse = Column(String(100), unique=True, nullable=False, index=True)
+    passwort_hash = Column(String(255), nullable=False)
+    rolle = Column(String(20), nullable=False, default="user")
 
-
-
+    ordner = relationship("DBOrdner", back_populates="user")
 
 
 class DBOrdner(Base):
     __tablename__ = 'ordner'
 
-    ordnerid = Column(Integer, primary_key=True)
-    title = Column(String, index=True)
-    userid = Column(Integer, ForeignKey('users.userid'))
+    ordnerid = Column(Integer, primary_key=True, index=True)
+    title = Column(String(100), nullable=False, index=True)
+    farbe = Column(String(30), nullable=True)
+    userid = Column(Integer, ForeignKey('users.userid'), nullable=False)
+
+    user = relationship("DBUser", back_populates="ordner")
+    karteikarten = relationship("DBKarteikarte", back_populates="ordner")
+    quizze = relationship("DBQuiz", back_populates="ordner")
+    statistiken = relationship("DBStatistik", back_populates="ordner")
 
 
-from sqlalchemy import Column, Integer, Text, ForeignKey
-from database import Base
 
-
-class DBKarteikarten(Base):
+class DBKarteikarte(Base):
     __tablename__ = "karteikarten"
 
-    karteikartenid = Column(Integer, primary_key=True)
+    karteikartenid = Column(Integer, primary_key=True, index=True)
+    typ = Column(String(30), nullable=False)
     text_frage = Column(Text, index=True)
     text_loesung = Column(Text, index=True)
-    ordnerid = Column(Integer, ForeignKey('ordner.ordnerid'))
+    ordnerid = Column(Integer, ForeignKey('ordner.ordnerid'), nullable=False)
 
-
+    ordner = relationship("DBOrdner", back_populates="karteikarten")
+    karteikarten_verbindung = relationship("DBQuizKarteikarte", back_populates="karteikarte")
 
 class DBQuiz(Base):
     __tablename__ = "quiz"
 
     quizid = Column(Integer, primary_key=True)
-    title = Column(String, index=True)
-    ordnerid = Column(Integer, ForeignKey("ordner.ordnerid"))
+    title = Column(String(100), index=True)
+    ordnerid = Column(Integer, ForeignKey("ordner.ordnerid"), nullable=False)
+
+    ordner = relationship("DBOrdner", back_populates="quizze")
+    karteikarten_verbindungen = relationship("DBQuizKarteikarte", back_populates="quiz")
 
 
-class DBQuizFrage_und_Antwort(Base):
-    __tablename__ = "quizfrage_und_antwort"
 
-    frageid = Column(Integer, primary_key=True)
-    frage = Column(String)
-    antwort = Column(String)
+class DBQuizKarteikarte(Base):
+    __tablename__ = "quiz_karteikarten"
 
-    quizid = Column(Integer, ForeignKey("quiz.quizid"))
+    id = Column(Integer, primary_key=True, index=True)
+    quizid = Column(Integer, ForeignKey("quiz.quizid"), nullable=False)
+    karteikartenid = Column(Integer, ForeignKey("karteikarten.karteikartenid"), nullable=False)
+
+    quiz = relationship("DBQuiz", back_populates="karteikarten_verbindungen")
+    karteikarte = relationship("DBKarteikarte", back_populates="karteikarten_verbindung")
+
+    __table_args__ = (
+        UniqueConstraint("quizid", "karteikartenid", name="quiz_karte_unique"),
+    )
+
 
 
 class DBStatistik(Base):
-
     __tablename__ = "statistik"
-    statistikid = Column(Integer, primary_key=True)
-    ordnerid = Column(Integer, ForeignKey("ordner.ordnerid"))
-    richtige_antworten = Column(Integer)
-    falsche_antworten = Column(Integer)
-    aktualisierungsstatistik = Column(Date)
+
+    statistikid = Column(Integer, primary_key=True, index=True)
+    ordnerid = Column(Integer, ForeignKey("ordner.ordnerid"), nullable=False)
+
+    richtige_antworten = Column(Integer, nullable=False, default=0)
+    falsche_antworten = Column(Integer, nullable=False, default=0)
+    datum = Column(DateTime, nullable=False, default=datetime.now)
+
+    ordner = relationship("DBOrdner", back_populates="statistiken")
 
 
 
