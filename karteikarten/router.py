@@ -30,6 +30,11 @@ class Karteikarten_API(BaseAPI):
     def karteikarten_anhand_id_erhalten(self, karteikarten_id: int):
         return self.get_or_404(DBKarteikarten, karteikarten_id, "karteikartenid")
 
+    @router.get("/ordner/{ordner_id}", response_model=list[Karteikarten_Response])
+    def karteikarten_eines_ordners_erhalten(self, ordner_id: int):
+        return self.db.query(DBKarteikarten).filter(DBKarteikarten.ordnerid == ordner_id).all()
+
+
     @router.post("/", response_model=Karteikarten_Response)
     def karteikarten_erstellen(self, karteikarten: Karteikarten_erstellen):
         db_karteikarten = DBKarteikarten(text_frage=karteikarten.text_frage, text_loesung=karteikarten.text_loesung, ordnerid=karteikarten.ordnerid)
