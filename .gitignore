@@ -3,4 +3,7 @@ venv/
 ENV/
 .idea/
 __pycache__/
-*.pycstim
+*.pyc
+*.db-journal
+*.db
+karteikartensystem.db
