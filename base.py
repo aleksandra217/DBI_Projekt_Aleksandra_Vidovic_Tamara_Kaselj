@@ -29,7 +29,7 @@ class BaseAPI:
 
 
     def check_ordner_besitzer_oder_admin(self, ordner_id: int, user_id: int):
-        user = self.get_or_404(DBUser, user_id, "ordnerid")
+        user = self.get_or_404(DBUser, user_id, "userid")
         ordner = self.get_or_404(DBOrdner,ordner_id, "ordnerid")
 
         if user.rolle == "admin":

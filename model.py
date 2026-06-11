@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Text, Date, UniqueConstraint,func
+from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Text, Date, UniqueConstraint
 from database import Base
 from sqlalchemy.orm import relationship
 from datetime import datetime
@@ -80,7 +80,7 @@ class DBStatistik(Base):
 
     richtige_antworten = Column(Integer, nullable=False, default=0)
     falsche_antworten = Column(Integer, nullable=False, default=0)
-    datum = Column(DateTime, nullable=False, default=func.now())
+    datum = Column(DateTime, nullable=False, default=datetime.now)
 
     ordner = relationship("DBOrdner", back_populates="statistiken")
 
