@@ -5,7 +5,7 @@ from fastapi_restful.cbv import cbv
 
 from model import DBQuiz
 from quiz.base import BaseAPI
-from model import DBKarteikarten
+from model import DBKarteikarte
 
 
 
@@ -65,5 +65,5 @@ class Quiz_API(BaseAPI):
 
     @router.post("/ordner/{ordner_id}/generate")
     def quiz_aus_karteikarten_erstellen(self, ordner_id: int):
-     karteikarten_holen = self.db.query(DBKarteikarten).filter(DBKarteikarten.ordnerid == ordner_id).all()
+     karteikarten_holen = self.db.query(DBKarteikarte).filter(DBKarteikarte.ordnerid == ordner_id).all()
      return karteikarten_holen
