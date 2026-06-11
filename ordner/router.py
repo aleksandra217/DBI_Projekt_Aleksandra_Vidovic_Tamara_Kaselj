@@ -12,6 +12,7 @@ router = APIRouter(prefix="/ordner", tags=["Ordner"])
 
 class Ordner_erstellen(BaseModel):
     title: str
+    userid: int
 
 
 
@@ -26,6 +27,7 @@ class Ordner_erstellen(BaseModel):
 class Ordner_Response(BaseModel):
     ordnerid: int
     title: str
+    userid: int
 
     model_config = ConfigDict(from_attributes=True) # Greift auf die Daten der DB zu.
 @cbv(router)
@@ -40,7 +42,7 @@ class Ordner_API(BaseAPI):
 
     @router.post("/", response_model=Ordner_Response)
     def ordner_erstellen(self, ordner: Ordner_erstellen):
-        db_ordner = DBOrdner(title=ordner.title)
+        db_ordner = DBOrdner(title=ordner.title, userid=ordner.userid)
         self.db.add(db_ordner)
         self.db.commit()
         self.db.refresh(db_ordner)
@@ -60,6 +62,8 @@ class Ordner_API(BaseAPI):
 
 
         db_ordner.title = item.title
+        db_ordner.userid = item.userid
+
 
 
         self.db.add(db_ordner)

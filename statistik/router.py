@@ -15,16 +15,19 @@ from typing import Optional, Any
 router = APIRouter(prefix="/statistik", tags=["Statistik"])
 
 class Statistik_erstellen(BaseModel):
+    ordnerid: int
     richtige_antworten: int
     falsche_antworten: int
     # Wieso bekomme ich einen 500 Internal Server Error? Lösung: statt datetime setzen, ein Optional[Any] = None setzen, weil falls es momentan keine Daten liefert, dann stürtzt das Programm nicht ab und man bekommt trotzdem seinen aktuellen stand.
-    aktualisierungsstatistik: Optional[Any] = None
+    #aktualisierungsstatistik: Optional[Any] = None
 
 
 class Statistik_Response(Statistik_erstellen):
     statistikid: int
+    ordnerid: int
     richtige_antworten: int
     falsche_antworten: int
+    datum: datetime
 
 
     model_config = ConfigDict(from_attributes=True) # Greift auf die Daten von der DB zu.
@@ -38,7 +41,7 @@ class Statistik_API(BaseAPI):
 
     @router.post("/", response_model=Statistik_Response)
     def statistik_erstellen(self, statistik: Statistik_erstellen):
-        db_statistik = DBStatistik(richtige_antworten=statistik.richtige_antworten, falsche_antworten=statistik.falsche_antworten)
+        db_statistik = DBStatistik(ordnerid=statistik.ordnerid,richtige_antworten=statistik.richtige_antworten, falsche_antworten=statistik.falsche_antworten)
         self.db.add(db_statistik)
         self.db.commit()
         self.db.refresh(db_statistik)
@@ -53,12 +56,12 @@ class Statistik_API(BaseAPI):
         self.db.commit()
 
     @router.put("/{statistik_id}", response_model=Statistik_Response)
-    def Statistik_veraendern(self, user_id: int, item: Statistik_erstellen):
-        db_statistik = self.get_or_404(DBStatistik, user_id, "statistikid")
+    def Statistik_veraendern(self, statistik_id: int, item: Statistik_erstellen):
+        db_statistik = self.get_or_404(DBStatistik, statistik_id, "statistikid")
 
-        db_statistik.name = item.name
-        db_statistik.email_adresse = item.email_adresse
-
+        db_statistik.ordnerid = item.ordnerid
+        db_statistik.richtige_antworten = item.richtige_antworten
+        db_statistik.falsche_antworten = item.falsche_antworten
         self.db.add(db_statistik)
         self.db.commit()
         self.db.refresh(db_statistik)

@@ -1,3 +1,4 @@
+import model
 import uvicorn
 from fastapi import FastAPI
 from database import Base, engine
@@ -6,6 +7,8 @@ from ordner.router import router as ordner_router
 from karteikarten.router import router as karteikarten_router
 from quiz.router import router as quiz_router
 from statistik.router import router as statistik_router
+
+
 
 Base.metadata.create_all(bind=engine)
 app = FastAPI(title="Karteikartensystem", description="Karteikartensystem", version="1.0.0")

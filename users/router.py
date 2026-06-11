@@ -14,6 +14,7 @@ router = APIRouter(prefix="/user", tags=["User"])
 class User_erstellen(BaseModel):
     name: str
     email_adresse: str
+    passwort: str
 
 
     @field_validator('name')
@@ -31,7 +32,7 @@ class User_erstellen(BaseModel):
         else:
             raise ValueError('Deine Email Adresse muss @ enthalten.')
 
-class User_Response(User_erstellen):
+class User_Response(BaseModel):
     userid: int
     name: str
     email_adresse: str
@@ -40,6 +41,7 @@ class User_Response(User_erstellen):
     model_config = ConfigDict(from_attributes=True) # Greift auf die Daten von der DB zu.
 @cbv(router)
 class User_API(BaseAPI):
+
     @router.get("/", response_model=list[User_Response])
     def alle_user_erhalten(self):
         return self.db.query(DBUser).all()
@@ -50,7 +52,7 @@ class User_API(BaseAPI):
 
     @router.post("/", response_model=User_Response)
     def user_erstellen(self, user: User_erstellen):
-        db_user = DBUser(name=user.name, email_adresse=user.email_adresse)
+        db_user = DBUser(name=user.name, email_adresse=user.email_adresse, passwort_hash=user.passwort, rolle="user")
         self.db.add(db_user)
         self.db.commit()
         self.db.refresh(db_user)
@@ -70,6 +72,7 @@ class User_API(BaseAPI):
 
         db_user.name = item.name
         db_user.email_adresse = item.email_adresse
+        db_user.passwort_hash = item.passwort
 
         self.db.add(db_user)
         self.db.commit()
