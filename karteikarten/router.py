@@ -2,9 +2,8 @@ from fastapi import APIRouter
 from fastapi_restful.cbv import cbv
 from pydantic import BaseModel, ConfigDict
 
-from model import DBKarteikarte
 from karteikarten.base import BaseAPI
-
+from model import DBKarteikarte
 
 router = APIRouter(prefix="/karteikarten", tags=["Karteikarten"])
 
@@ -12,7 +11,6 @@ class Karteikarten_erstellen(BaseModel):
     text_frage: str
     text_loesung: str
     ordnerid: int
-    typ: str
 
 
 
@@ -20,7 +18,6 @@ class Karteikarten_Response(BaseModel):
     karteikartenid: int
     text_frage: str
     text_loesung: str
-    typ: str
 
     model_config = ConfigDict(from_attributes=True) # Greift auf die Daten der DB zu.
 @cbv(router)
@@ -40,7 +37,7 @@ class Karteikarten_API(BaseAPI):
 
     @router.post("/", response_model=Karteikarten_Response)
     def karteikarten_erstellen(self, karteikarten: Karteikarten_erstellen):
-        db_karteikarten = DBKarteikarte(text_frage=karteikarten.text_frage, text_loesung=karteikarten.text_loesung, ordnerid=karteikarten.ordnerid, typ=karteikarten.typ)
+        db_karteikarten = DBKarteikarte(text_frage=karteikarten.text_frage, text_loesung=karteikarten.text_loesung, ordnerid=karteikarten.ordnerid)
         self.db.add(db_karteikarten)
         self.db.commit()
         self.db.refresh(db_karteikarten)
@@ -61,8 +58,6 @@ class Karteikarten_API(BaseAPI):
 
         db_karteikarten.text_frage = item.text_frage
         db_karteikarten.text_loesung = item.text_loesung
-        db_karteikarten.ordnerid = item.ordnerid
-        db_karteikarten.typ = item.typ
 
 
         self.db.add(db_karteikarten)
