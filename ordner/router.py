@@ -1,9 +1,11 @@
-from fastapi import APIRouter, Query
+from fastapi import APIRouter, Query, HTTPException, Depends
 from fastapi_restful.cbv import cbv
 from pydantic import BaseModel, ConfigDict, field_validator
 
 from base import BaseAPI
 from model import DBOrdner, DBUser
+from sqlalchemy.orm import Session
+from database import get_db
 
 
 router = APIRouter(prefix="/ordner", tags=["Ordner"])
@@ -30,7 +32,20 @@ class OrdnerResponse(BaseModel):
 
     model_config = ConfigDict(from_attributes=True)
 
-
+@router.post("/", response_model=OrdnerResponse, status_code=201)
+def ordner_erstellen(ordner: OrdnerErstellen, db: Session = Depends(get_db)):
+    user_vorhanden = db.query(DBUser).filter(DBUser.userid == ordner.userid).first()
+    if not user_vorhanden:
+        raise HTTPException(status_code=404, detail="User konnte nicht gefunden werden.")
+    db_ordner = DBOrdner(
+        title=ordner.title,
+        userid=ordner.userid,
+        farbe=ordner.farbe
+    )
+    db.add(db_ordner)
+    db.commit()
+    db.refresh(db_ordner)
+    return db_ordner
 @cbv(router)
 class OrdnerAPI(BaseAPI):
 
@@ -62,21 +77,7 @@ class OrdnerAPI(BaseAPI):
     def ordner_anhand_id_erhalten(self, ordner_id: int, aktueller_user_id: int = Query(...)):
         return self.check_ordner_besitzer_oder_admin(ordner_id, aktueller_user_id)
 
-    @router.post("/", response_model=OrdnerResponse, status_code=201)
-    def ordner_erstellen(self, ordner: OrdnerErstellen):
-        self.get_or_404(DBUser, ordner.userid, "userid")
 
-        db_ordner = DBOrdner(
-            title=ordner.title,
-            userid=ordner.userid,
-            farbe=ordner.farbe
-        )
-
-        self.db.add(db_ordner)
-        self.db.commit()
-        self.db.refresh(db_ordner)
-
-        return db_ordner
 
     @router.put("/{ordner_id}", response_model=OrdnerResponse)
     def ordner_veraendern(

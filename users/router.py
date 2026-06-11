@@ -42,7 +42,7 @@ class UserErstellen(BaseModel):
     def passwort_pruefen(cls, value: str):
         if len(value) < 6:
             raise ValueError('Das Passwort muss mindenstens 6 Zeichen haben.')
-        raise value
+        return value
 
 
     @field_validator('rolle')
@@ -54,8 +54,8 @@ class UserErstellen(BaseModel):
 
 
 class UserLogin(BaseModel):
-    email_addresse: str
-    password: str
+    email_adresse: str
+    passwort: str
 
 
 class UserResponse(BaseModel):
@@ -115,7 +115,7 @@ class UserAPI(BaseAPI):
         if user is None:
             raise HTTPException(status_code=401, detail="E-Mail oder Passwort falsch.")
 
-        if user.passwort_hash != password_hash(login_daten.passwort):
+        if (user.passwort_hash != password_hash(login_daten.passwort)):
             raise HTTPException(status_code=401, detail="E-Mail oder Passwort falsch.")
 
         return {
