@@ -1,74 +1,105 @@
-from pydantic import BaseModel, field_validator, ConfigDict
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Query
 from fastapi_restful.cbv import cbv
+from pydantic import BaseModel, ConfigDict, field_validator
 
-
-from model import DBOrdner
-from ordner.base import BaseAPI
-
+from base import BaseAPI
+from model import DBOrdner, DBUser
 
 
 router = APIRouter(prefix="/ordner", tags=["Ordner"])
 
-class Ordner_erstellen(BaseModel):
+
+class OrdnerErstellen(BaseModel):
     title: str
     userid: int
-
-
+    farbe: str | None = None
 
     @field_validator('title')
     @classmethod
-    def ueberpruefen_ob_ordner_keinen__hat(cls, value: str):
-        if not value.strip(): # entfernt die leerzeichen am anfang und am ende des namens.  Wenn kein Name eingegeben worden ist, dann wirft es einen Fehler.
+    def title_pruefen(cls, value: str):
+        if not value.strip():
             raise ValueError('Bitte vergebe deinem Ordner einen Namen.')
         return value
 
 
-class Ordner_Response(BaseModel):
+class OrdnerResponse(BaseModel):
     ordnerid: int
     title: str
     userid: int
+    farbe: str | None = None
 
-    model_config = ConfigDict(from_attributes=True) # Greift auf die Daten der DB zu.
+    model_config = ConfigDict(from_attributes=True)
+
+
 @cbv(router)
-class Ordner_API(BaseAPI):
-    @router.get("/", response_model=list[Ordner_Response])
-    def alle_ordner_erhalten(self):
-        return self.db.query(DBOrdner).all()
+class OrdnerAPI(BaseAPI):
 
-    @router.get("/{ordner_id}", response_model=Ordner_Response)
-    def ordner_anhand_id_erhalten(self, ordner_id: int):
-        return self.get_or_404(DBOrdner, ordner_id, "ordnerid")
+    @router.get("/", response_model=list[OrdnerResponse])
+    def alle_ordner_erhalten(
+            self,
+            aktueller_user_id: int = Query(...),
+            suche: str | None = None,
+            sortierung: str = "asc"
+    ):
+        user = self.get_or_404(DBUser, aktueller_user_id, "userid")
 
-    @router.post("/", response_model=Ordner_Response)
-    def ordner_erstellen(self, ordner: Ordner_erstellen):
-        db_ordner = DBOrdner(title=ordner.title, userid=ordner.userid)
+        query = self.db.query(DBOrdner)
+
+        if user.rolle != "admin":
+            query = query.filter(DBOrdner.userid == aktueller_user_id)
+
+        if suche:
+            query = query.filter(DBOrdner.title.contains(suche))
+
+        if sortierung == "desc":
+            query = query.order_by(DBOrdner.title.desc())
+        else:
+            query = query.order_by(DBOrdner.title.asc())
+
+        return query.all()
+
+    @router.get("/{ordner_id}", response_model=OrdnerResponse)
+    def ordner_anhand_id_erhalten(self, ordner_id: int, aktueller_user_id: int = Query(...)):
+        return self.check_ordner_besitzer_oder_admin(ordner_id, aktueller_user_id)
+
+    @router.post("/", response_model=OrdnerResponse, status_code=201)
+    def ordner_erstellen(self, ordner: OrdnerErstellen):
+        self.get_or_404(DBUser, ordner.userid, "userid")
+
+        db_ordner = DBOrdner(
+            title=ordner.title,
+            userid=ordner.userid,
+            farbe=ordner.farbe
+        )
+
         self.db.add(db_ordner)
         self.db.commit()
         self.db.refresh(db_ordner)
-        print(self.db)
+
         return db_ordner
 
+    @router.put("/{ordner_id}", response_model=OrdnerResponse)
+    def ordner_veraendern(
+            self,
+            ordner_id: int,
+            item: OrdnerErstellen,
+            aktueller_user_id: int = Query(...)
+    ):
+        db_ordner = self.check_ordner_besitzer_oder_admin(ordner_id, aktueller_user_id)
+
+        db_ordner.title = item.title
+        db_ordner.farbe = item.farbe
+
+        self.db.commit()
+        self.db.refresh(db_ordner)
+
+        return db_ordner
 
     @router.delete("/{ordner_id}")
-    def ordner_entfernen(self, ordner_id: int):
-        db_ordner = self.get_or_404(DBOrdner, ordner_id, "ordnerid")
+    def ordner_entfernen(self, ordner_id: int, aktueller_user_id: int = Query(...)):
+        db_ordner = self.check_ordner_besitzer_oder_admin(ordner_id, aktueller_user_id)
+
         self.db.delete(db_ordner)
         self.db.commit()
 
-    @router.put("/{ordner_id}", response_model=Ordner_Response)
-    def ordner_veraendern(self, ordner_id: int, item: Ordner_erstellen):
-        db_ordner = self.get_or_404(DBOrdner, ordner_id, "ordnerid")
-
-
-        db_ordner.title = item.title
-        db_ordner.userid = item.userid
-
-
-
-        self.db.add(db_ordner)
-        self.db.commit()
-        self.db.refresh(db_ordner)
-
-        return db_ordner
-
+        return {"message": "Ordner wurde gelöscht."}
