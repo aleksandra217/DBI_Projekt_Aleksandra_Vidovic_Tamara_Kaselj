@@ -62,28 +62,42 @@ class KarteikartenAPI(BaseAPI):
         suche: str | None = None,
         sortierung: str = "asc"
     ):
-        query = self.db.query(DBKarteikarte).join(DBOrdner)
-
+        # 1. User abrufen und Rolle prüfen
         user = self.get_or_404(DBUser, aktueller_user_id, "userid")
 
+        # 2. Alle Karteikarten roh aus der Datenbank laden (OHNE JOIN!)
+        alle_karten = self.db.query(DBKarteikarte).all()
+
+        # 3. Wenn der User kein Admin ist, filtern wir manuell über seine Ordner
         if user.rolle != "admin":
-            query = query.filter(DBOrdner.userid == aktueller_user_id)
+            # Hole alle Ordner-IDs, die diesem User gehören
+            user_ordner_ids = [
+                o.ordnerid for o in self.db.query(DBOrdner.ordnerid).filter(DBOrdner.userid == aktueller_user_id).all()
+            ]
+            # Behalte nur Karten, die in einem Ordner des Users liegen
+            alle_karten = [k for k in alle_karten if k.ordnerid in user_ordner_ids]
 
+        # 4. Filter für 'ordnerid' anwenden
         if ordnerid is not None:
-            query = query.filter(DBKarteikarte.ordnerid == ordnerid)
+            alle_karten = [k for k in alle_karten if k.ordnerid == ordnerid]
 
+        # 5. Filter für 'typ' anwenden
         if typ is not None:
-            query = query.filter(DBKarteikarte.typ == typ)
+            alle_karten = [k for k in alle_karten if k.typ == typ]
 
+        # 6. Filter für 'suche' anwenden (Case-Insensitive / Groß- und Kleinschreibung egal)
         if suche:
-            query = query.filter(DBKarteikarte.text_frage.contains(suche))
+            suche_klein = suche.lower()
+            alle_karten = [k for k in alle_karten if k.text_frage and suche_klein in k.text_frage.lower()]
 
+        # 7. Sortierung anwenden
         if sortierung == "desc":
-            query = query.order_by(DBKarteikarte.karteikartenid.desc())
+            alle_karten.sort(key=lambda x: x.karteikartenid, reverse=True)
         else:
-            query = query.order_by(DBKarteikarte.karteikartenid.asc())
+            alle_karten.sort(key=lambda x: x.karteikartenid)
 
-        return query.all()
+        return alle_karten
+
 
     @router.get("/mit-ordner", response_model=list[KarteikarteMitOrdnerResponse])
     def karteikarten_mit_ordner_join(self, aktueller_user_id: int = Query(...)):

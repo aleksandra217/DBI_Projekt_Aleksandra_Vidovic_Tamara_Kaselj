@@ -61,7 +61,8 @@ class QuizAPI(BaseAPI):
     def quiz_aus_karteikarten_erstellen(
         self,
         ordner_id: int,
-        aktueller_user_id: int = Query(...)
+        aktueller_user_id: int = Query(...),
+        title: str = Query("Hallo")
     ):
         self.check_ordner_besitzer_oder_admin(ordner_id, aktueller_user_id)
 
@@ -76,7 +77,7 @@ class QuizAPI(BaseAPI):
             )
 
         db_quiz = DBQuiz(
-            title="Quiz aus Ordner",
+            title=title,
             ordnerid=ordner_id
         )
 
@@ -99,6 +100,7 @@ class QuizAPI(BaseAPI):
     def quiz_karteikarten_anzeigen(self, quiz_id: int, aktueller_user_id: int = Query(...)):
         quiz = self.get_or_404(DBQuiz, quiz_id, "quizid")
         self.check_ordner_besitzer_oder_admin(quiz.ordnerid, aktueller_user_id)
+
 
         ergebnis = self.db.query(DBKarteikarte).join(DBQuizKarteikarte).filter(
             DBQuizKarteikarte.quizid == quiz_id

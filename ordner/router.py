@@ -95,7 +95,7 @@ class OrdnerAPI(BaseAPI):
 
         return db_ordner
 
-    @router.delete("/{ordner_id}")
+    @router.delete("/{ordner_id}", status_code=200)
     def ordner_entfernen(self, ordner_id: int, aktueller_user_id: int = Query(...)):
         db_ordner = self.check_ordner_besitzer_oder_admin(ordner_id, aktueller_user_id)
 
