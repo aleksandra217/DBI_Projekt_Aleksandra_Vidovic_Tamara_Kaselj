@@ -5,7 +5,8 @@ from database import get_db
 from model import DBUser, DBOrdner
 
 class BaseAPI:
-    def __init__(self, db: Session = Depends(get_db)):
+    # Wieso bekomme ich die ganze zeit einen fehler bei get_db? /Aleksandra
+    def __init__(self, db: Session = Depends(get_db)): # datenbank initialisieren
         self.db = db
 
     def get_or_404(self, model, item_id: int, id_field: str):

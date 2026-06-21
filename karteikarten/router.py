@@ -62,6 +62,7 @@ class KarteikartenAPI(BaseAPI):
         suche: str | None = None,
         sortierung: str = "asc"
     ):
+        # Wieso kann ich nicht alle Karteikarten erhalten? /Aleksandra
         # 1. User abrufen und Rolle prüfen
         user = self.get_or_404(DBUser, aktueller_user_id, "userid")
 
