@@ -4,6 +4,7 @@ from sqlalchemy.orm import relationship
 from datetime import datetime
 
 
+# mit Hilfe von KI: Kannst du mir hier Fehler verbessern:
 
 class DBUser(Base):
     __tablename__ = 'users'

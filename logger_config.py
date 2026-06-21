@@ -10,3 +10,5 @@ logging.basicConfig(
 )
 
 logger = logging.getLogger(__name__)
+
+# mit Hilfe von KI Prompt: Kannst du mir beim Logging im Fast-API helfen?

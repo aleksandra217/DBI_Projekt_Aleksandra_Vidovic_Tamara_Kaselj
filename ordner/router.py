@@ -34,6 +34,7 @@ class OrdnerResponse(BaseModel):
 @cbv(router)
 class OrdnerAPI(BaseAPI):
 
+# beim ordner erhalten mit Hilfe von KI Prompt: Kannst du mir beim Endpunkt alle_ordner_erhalten helfen?
     @router.get("/", response_model=list[OrdnerResponse])
     def alle_ordner_erhalten(
             self,
@@ -78,6 +79,7 @@ class OrdnerAPI(BaseAPI):
 
         return db_ordner
 
+# mit Hilfe von KI Prompt: Hilf mir bei diesem Endpunkt weiter
     @router.put("/{ordner_id}", response_model=OrdnerResponse)
     def ordner_veraendern(
             self,

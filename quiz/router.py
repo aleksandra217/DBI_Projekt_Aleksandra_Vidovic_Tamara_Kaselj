@@ -57,6 +57,7 @@ class QuizAPI(BaseAPI):
 
         return db_quiz
 
+# mit Hilfe von KI Prompt: Hilf mir hier weiter wie ich in FastAPI Karteikarten erstellen kann fürs Quiz
     @router.post("/ordner/{ordner_id}/generate", response_model=QuizResponse)
     def quiz_aus_karteikarten_erstellen(
         self,
