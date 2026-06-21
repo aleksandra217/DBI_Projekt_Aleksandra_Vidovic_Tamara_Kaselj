@@ -17,7 +17,7 @@ class OrdnerErstellen(BaseModel):
     @field_validator('title')
     @classmethod
     def title_pruefen(cls, value: str):
-        if not value.strip():
+        if not value.strip(): # entfernt die leerzeichen am anfang und am ende des namens.  Wenn kein Name eingegeben worden ist, dann wirft es einen Fehler.
             raise ValueError('Bitte vergebe deinem Ordner einen Namen.')
         return value
 

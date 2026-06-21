@@ -5,7 +5,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from starlette import status
 
-from database import Base, engine
+from database import Base, engine 
 from logger_config import logger
 
 from users.router import router as user_router
@@ -45,7 +45,10 @@ async def log_request(request: Request, call_next):
             f"Fehler bei Request: {request.method} {request.url.path} "
             f"Dauer: {dauer}s Fehler: {str(fehler)}")
 
-        return JSONResponse(status_code=500, content={"detail": "Interner Serverfehler. Bitte überprüfen die Logs."})
+        return (JSONResponse
+
+
+                (status_code=500, content={"detail": "Interner Serverfehler. Bitte überprüfen die Logs."}))
 
 
 
@@ -56,7 +59,7 @@ app.include_router(quiz_router)
 app.include_router(statistik_router)
 
 
-@app.get("/") 
+@app.get("/")
 def root():
     logger.info("Root-Endpunkte wurden aufgerufen.")
     return {"message": "Unser Karteikartensystem."}

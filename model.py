@@ -81,7 +81,7 @@ class DBStatistik(Base):
 
     richtige_antworten = Column(Integer, nullable=False, default=0)
     falsche_antworten = Column(Integer, nullable=False, default=0)
-    datum = Column(DateTime, nullable=False, default=datetime.now)
+    datum = Column(DateTime, nullable=False, default=datetime.now) # gibt die momentane zeit an.
 
     ordner = relationship("DBOrdner", back_populates="statistiken")
 

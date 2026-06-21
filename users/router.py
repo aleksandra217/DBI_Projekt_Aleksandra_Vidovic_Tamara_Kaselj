@@ -49,7 +49,7 @@ class UserErstellen(BaseModel):
     @classmethod
     def rolle_pruefen(cls, value: str):
         if value not in ["user", "admin"]:
-            raise ValueError("Rolle muss user ider admin sein")
+            raise ValueError("Rolle muss user oder admin sein")
         return value
 
 
